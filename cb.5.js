@@ -1,37 +1,33 @@
   function returnAValue (callback) {
-      setTimeout(() => {
         if (Math.random() < 0.10) {
           callback(new Error('ops'));
         } else {
-          callback(null, Math.floor(Math.random() * 10));
+          return callback(null, Math.floor(Math.random() * 10));
         }
-      }, 1000);
   }
 
   function handleValueResult(err, result){
     if(err){
-      //console.error();
-      console.log("no number");
+      console.error();
       return;
     }
-    console.log("number is ", result);
-  }
-  
-
-  function add2RandomNumbers(callback){
-    let one = 0;
-    let two = 0;
-    setTimeout(()=>{
-       one = returnAValue(callback);
-       two = returnAValue(callback); 
-       console.log('fonr'); 
-    },1000);
-    
-    console.log(':)' + one);
-    console.log(two);  
+    return result;
   }
 
-  add2RandomNumbers(handleValueResult);
+  function addNRandomNumbers(n, callback){
+    let total = 0;
+    while(n>0){
+      let num = returnAValue(callback);
+      if(num){
+        total = total + num;
+        n--;
+      }
+    }
+    return total;
+  }
+
+  let result = addNRandomNumbers(1, handleValueResult);
+  console.log(result);
    
 //  Build function Add2RandomNumbers(callback) that return the result of the 
 //  addition of 2 numbers (you get them with returnAValue)
@@ -40,15 +36,7 @@
 //  the addition of n numbers (you get them with returnAValue)
   
   
-//   // if error
-//   callback(err);
-   
-//   //if It worked
-//   callback(null, result);
-   
-//   callback(err, result){
-   
-//   }
+
    
    
   
